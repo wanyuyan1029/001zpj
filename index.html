@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>武彦谕 | 个人作品集</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f9ff;
+      --surface: #ffffff;
+      --surface-2: #e8f2ff;
+      --ink: #10233f;
+      --muted: #60728f;
+      --line: rgba(16, 35, 63, 0.12);
+      --accent: #1f7aff;
+      --accent-2: #0b5fc2;
+      --accent-3: #9dccff;
+      --shadow: 0 24px 60px rgba(20, 74, 142, 0.14);
+      --radius: 8px;
+      font-family: Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+    }
+
+    body.dark {
+      color-scheme: dark;
+      --bg: #071326;
+      --surface: #0d1e36;
+      --surface-2: #132b4f;
+      --ink: #edf6ff;
+      --muted: #a7b8cf;
+      --line: rgba(237, 246, 255, 0.14);
+      --accent: #59a6ff;
+      --accent-2: #88c4ff;
+      --accent-3: #d7ebff;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-radius: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .icon-btn,
+    .btn {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      border-radius: var(--radius);
+      cursor: pointer;
+      min-height: 42px;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .icon-btn {
+      width: 42px;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 18px;
+      font-weight: 700;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn:hover,
+    .icon-btn:hover {
+      transform: translateY(-2px);
+      border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+    }
+
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: grid;
+      align-items: center;
+      padding: 56px 0 30px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.03fr 0.97fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-2);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-2);
+      border-radius: 50%;
+    }
+
+    h1 {
+      margin: 22px 0 18px;
+      font-size: clamp(52px, 7vw, 104px);
+      line-height: 0.92;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 42px;
+      max-width: 640px;
+    }
+
+    .metric {
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: clamp(26px, 4vw, 42px);
+      line-height: 1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .portrait-wrap {
+      position: relative;
+      min-height: 560px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: var(--surface-2);
+      isolation: isolate;
+    }
+
+    .portrait-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 42%, rgba(7, 25, 52, 0.74));
+      z-index: 1;
+    }
+
+    .portrait-wrap img {
+      width: 100%;
+      height: 100%;
+      min-height: 560px;
+      object-fit: cover;
+      filter: saturate(0.94) contrast(1.02);
+    }
+
+    .availability {
+      position: absolute;
+      z-index: 2;
+      left: 22px;
+      right: 22px;
+      bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      color: #ffffff;
+    }
+
+    .availability strong {
+      display: block;
+      font-size: 22px;
+    }
+
+    .availability span {
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 13px;
+    }
+
+    .scroll-cue {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    section {
+      padding: 92px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      max-width: 680px;
+      font-size: clamp(34px, 5vw, 64px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 360px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 26px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    .chip.active {
+      color: #ffffff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .work-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .work-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
+    }
+
+    .work-image {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--surface-2);
+    }
+
+    .work-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    .work-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .work-body {
+      padding: 20px;
+    }
+
+    .work-body small {
+      color: var(--accent-2);
+      font-weight: 800;
+    }
+
+    .work-body h3 {
+      margin: 10px 0 8px;
+      font-size: 23px;
+      letter-spacing: 0;
+    }
+
+    .work-body p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .service-band {
+      background: linear-gradient(135deg, #0b5fc2, #123b73);
+      color: #ffffff;
+    }
+
+    .service-band .section-head p,
+    .service-band .eyebrow {
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .service {
+      min-height: 260px;
+      padding: 28px;
+      background: rgba(8, 38, 78, 0.72);
+    }
+
+    .service b {
+      color: var(--accent-3);
+      font-size: 13px;
+    }
+
+    .service h3 {
+      margin: 52px 0 12px;
+      font-size: 25px;
+    }
+
+    .service p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.76);
+      line-height: 1.65;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 44px;
+      align-items: start;
+    }
+
+    .quote {
+      position: sticky;
+      top: 104px;
+      padding: 34px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .quote p {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.25;
+    }
+
+    .quote span {
+      display: block;
+      margin-top: 22px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .timeline {
+      border-left: 1px solid var(--line);
+      padding-left: 26px;
+    }
+
+    .time-item {
+      position: relative;
+      padding: 0 0 34px;
+    }
+
+    .time-item::before {
+      content: "";
+      position: absolute;
+      left: -32px;
+      top: 5px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+
+    .time-item time {
+      color: var(--accent-2);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .time-item h3 {
+      margin: 8px 0;
+      font-size: 24px;
+    }
+
+    .time-item p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .contact {
+      padding-bottom: 34px;
+    }
+
+    .contact-panel {
+      display: grid;
+      grid-template-columns: 1fr 0.95fr;
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-copy,
+    form {
+      background: var(--surface);
+      padding: clamp(28px, 5vw, 48px);
+    }
+
+    .contact-copy h2 {
+      margin: 0 0 18px;
+      font-size: clamp(36px, 5vw, 68px);
+      line-height: 0.98;
+    }
+
+    .contact-copy p {
+      margin: 0 0 28px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+      color: var(--muted);
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--ink);
+      border-radius: var(--radius);
+      padding: 13px 14px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--accent-2);
+    }
+
+    footer {
+      padding: 26px 0 40px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+    }
+
+    @media (max-width: 920px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-grid,
+      .about-grid,
+      .contact-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .portrait-wrap,
+      .portrait-wrap img {
+        min-height: 420px;
+      }
+
+      .work-grid,
+      .services {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .quote {
+        position: static;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .nav-inner {
+        height: 64px;
+      }
+
+      .nav-actions .btn {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 34px;
+      }
+
+      .hero-meta,
+      .work-grid,
+      .services {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 14px;
+      }
+
+      section {
+        padding: 64px 0;
+      }
+
+      .availability {
+        display: grid;
+      }
+
+      .footer-inner {
+        display: grid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="shell nav-inner">
+      <a class="brand" href="#top" aria-label="回到顶部">
+        <span class="brand-mark">W</span>
+        <span>武彦谕 Portfolio</span>
+      </a>
+      <div class="nav-links" aria-label="页面导航">
+        <a href="#work">作品</a>
+        <a href="#services">能力</a>
+        <a href="#about">经历</a>
+        <a href="#contact">联系</a>
+      </div>
+      <div class="nav-actions">
+        <button class="icon-btn" id="themeToggle" aria-label="切换深浅色" title="切换深浅色">☾</button>
+        <a class="btn primary" href="#contact">预约沟通</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <span class="eyebrow"><span class="dot"></span>Product Designer / Front-end Builder</span>
+          <h1>把复杂产品做得清楚、漂亮、可上线。</h1>
+          <p class="hero-copy">你好，我是武彦谕，一名专注 B2B SaaS、数据看板与增长型网站的产品设计师。擅长从业务目标、信息架构、交互原型到前端落地，把模糊需求整理成用户愿意使用的界面。</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#work">查看精选作品</a>
+            <a class="btn" href="mailto:hello@example.com">hello@example.com</a>
+          </div>
+          <div class="hero-meta" aria-label="关键数据">
+            <div class="metric">
+              <strong>38+</strong>
+              <span>完成项目</span>
+            </div>
+            <div class="metric">
+              <strong>6年</strong>
+              <span>产品与界面经验</span>
+            </div>
+            <div class="metric">
+              <strong>12%</strong>
+              <span>平均转化提升</span>
+            </div>
+          </div>
+          <div class="scroll-cue">向下浏览作品与服务内容</div>
+        </div>
+
+        <figure class="portrait-wrap" aria-label="个人形象展示">
+          <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85" alt="明亮工作室里的创意工作台" />
+          <figcaption class="availability">
+            <div>
+              <strong>2026 档期开放</strong>
+              <span>远程协作 / 上海可线下工作坊</span>
+            </div>
+            <div>
+              <strong>2-8周</strong>
+              <span>从审计到可交付界面</span>
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+    </header>
+
+    <section id="work">
+      <div class="shell">
+        <div class="section-head">
+          <h2>精选作品</h2>
+          <p>覆盖工作台、数据分析、品牌官网与移动端体验。每个项目都围绕更快决策、更少摩擦、更高信任感设计。</p>
+        </div>
+
+        <div class="filters" aria-label="作品筛选">
+          <button class="chip active" data-filter="all">全部</button>
+          <button class="chip" data-filter="saas">SaaS</button>
+          <button class="chip" data-filter="data">数据产品</button>
+          <button class="chip" data-filter="brand">品牌网站</button>
+        </div>
+
+        <div class="work-grid">
+          <article class="work-card" data-category="saas">
+            <div class="work-image">
+              <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=900&q=80" alt="团队围绕笔记本讨论产品界面" />
+            </div>
+            <div class="work-body">
+              <small>SaaS / 运营平台</small>
+              <h3>FlowDesk 工作台重构</h3>
+              <p>重整导航、任务流和批量处理机制，让运营团队的日常处理效率提升 27%。</p>
+            </div>
+          </article>
+
+          <article class="work-card" data-category="data">
+            <div class="work-image">
+              <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80" alt="屏幕上的数据图表界面" />
+            </div>
+            <div class="work-body">
+              <small>Data / BI Dashboard</small>
+              <h3>Northstar 指标中心</h3>
+              <p>建立指标分层、异常解释和收藏视图，帮助管理层把周报准备时间缩短一半。</p>
+            </div>
+          </article>
+
+          <article class="work-card" data-category="brand">
+            <div class="work-image">
+              <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80" alt="建筑与光影构成的品牌视觉" />
+            </div>
+            <div class="work-body">
+              <small>Brand / Launch Site</small>
+              <h3>Aster Lab 品牌官网</h3>
+              <p>为 AI 创业团队设计首发官网、案例叙事和线索表单，提升早期客户咨询质量。</p>
+            </div>
+          </article>
+
+          <article class="work-card" data-category="saas">
+            <div class="work-image">
+              <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80" alt="团队在白板前进行产品工作坊" />
+            </div>
+            <div class="work-body">
+              <small>SaaS / Design System</small>
+              <h3>Atlas 组件规范</h3>
+              <p>梳理 42 个核心组件与状态，连接设计稿、Storybook 和研发验收标准。</p>
+            </div>
+          </article>
+
+          <article class="work-card" data-category="data">
+            <div class="work-image">
+              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80" alt="笔记本电脑展示分析图表" />
+            </div>
+            <div class="work-body">
+              <small>Data / Growth</small>
+              <h3>Pulse 增长实验板</h3>
+              <p>把实验假设、样本量、结果解释合并在同一视图，减少跨团队沟通成本。</p>
+            </div>
+          </article>
+
+          <article class="work-card" data-category="brand">
+            <div class="work-image">
+              <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=80" alt="现代办公空间与展示区域" />
+            </div>
+            <div class="work-body">
+              <small>Brand / Portfolio</small>
+              <h3>Studio Vivid 作品站</h3>
+              <p>用清晰项目结构和更强首屏识别度，帮助创意团队展示高客单价案例。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-band" id="services">
+      <div class="shell">
+        <div class="section-head">
+          <h2>我能提供的价值</h2>
+          <p>不是只交付一张好看的图，而是把产品要解决的问题、用户路径和工程落地一起想清楚。</p>
+        </div>
+        <div class="services">
+          <article class="service">
+            <b>01</b>
+            <h3>产品体验审计</h3>
+            <p>通过启发式评估、关键路径走查和竞品对照，快速定位最值得优先修的体验问题。</p>
+          </article>
+          <article class="service">
+            <b>02</b>
+            <h3>界面与交互设计</h3>
+            <p>输出可评审的高保真界面、状态流、响应式规则和面向研发的标注说明。</p>
+          </article>
+          <article class="service">
+            <b>03</b>
+            <h3>设计系统搭建</h3>
+            <p>沉淀色彩、排版、间距、组件和使用规范，让团队后续迭代保持一致。</p>
+          </article>
+          <article class="service">
+            <b>04</b>
+            <h3>前端原型实现</h3>
+            <p>用 HTML、CSS、React 或低代码原型把关键体验跑起来，降低决策与沟通成本。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="shell about-grid">
+        <aside class="quote">
+          <p>“好的界面不是把所有东西都展示出来，而是让正确的人在正确时刻看见正确的东西。”</p>
+          <span>我的工作方式偏研究驱动，也很重视上线质量。通常会从业务指标和真实使用场景切入，再逐步推进到结构、交互、视觉和交付。</span>
+        </aside>
+
+        <div class="timeline">
+          <article class="time-item">
+            <time>2024 - 现在</time>
+            <h3>自由产品设计顾问</h3>
+            <p>服务早期创业团队与成长型 SaaS 公司，负责产品体验审计、核心页面重构、设计系统和前端原型。</p>
+          </article>
+          <article class="time-item">
+            <time>2021 - 2024</time>
+            <h3>高级产品设计师 / CloudMatrix</h3>
+            <p>主导企业级运维平台体验升级，覆盖权限、告警、资源拓扑、报表和多租户配置等复杂模块。</p>
+          </article>
+          <article class="time-item">
+            <time>2018 - 2021</time>
+            <h3>UI 设计师 / North Interactive</h3>
+            <p>参与金融、教育和消费品牌项目，积累了从品牌视觉到响应式网站的完整交付经验。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="shell contact-panel">
+        <div class="contact-copy">
+          <span class="eyebrow"><span class="dot"></span>Start a Project</span>
+          <h2>有产品想打磨？我们聊聊。</h2>
+          <p>发来你的产品链接、问题描述或目标指标。我会在 24 小时内回复，并给出一个适合当前阶段的合作建议。</p>
+          <div class="contact-list">
+            <span>邮箱：hello@example.com</span>
+            <span>微信：wu-design-2026</span>
+            <span>城市：上海 / 远程协作</span>
+          </div>
+        </div>
+
+        <form id="contactForm">
+          <div class="field">
+            <label for="name">你的称呼</label>
+            <input id="name" name="name" placeholder="例如：王同学" required />
+          </div>
+          <div class="field">
+            <label for="email">联系方式</label>
+            <input id="email" name="email" type="email" placeholder="name@company.com" required />
+          </div>
+          <div class="field">
+            <label for="message">项目简述</label>
+            <textarea id="message" name="message" placeholder="简单说说你正在做什么、遇到什么问题。" required></textarea>
+          </div>
+          <button class="btn primary" type="submit">生成邮件草稿</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <span>© 2026 武彦谕. Designed and coded as a single-page portfolio.</span>
+      <span>可替换为你的真实姓名、作品、邮箱与图片。</span>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.querySelector("#themeToggle");
+    let savedTheme = "";
+
+    try {
+      savedTheme = localStorage.getItem("portfolio-theme") || "";
+    } catch (error) {
+      savedTheme = "";
+    }
+
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark");
+      themeToggle.textContent = "☀";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      try {
+        localStorage.setItem("portfolio-theme", isDark ? "dark" : "light");
+      } catch (error) {
+        // Local files can run under stricter browser settings; the theme still works for this session.
+      }
+      themeToggle.textContent = isDark ? "☀" : "☾";
+    });
+
+    const chips = document.querySelectorAll(".chip");
+    const cards = document.querySelectorAll(".work-card");
+
+    chips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        chips.forEach((item) => item.classList.remove("active"));
+        chip.classList.add("active");
+
+        const filter = chip.dataset.filter;
+        cards.forEach((card) => {
+          const visible = filter === "all" || card.dataset.category === filter;
+          card.style.display = visible ? "" : "none";
+        });
+      });
+    });
+
+    document.querySelector("#contactForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const subject = encodeURIComponent("作品集网站咨询");
+      const body = encodeURIComponent(
+        `你好，我是${data.get("name")}。\n\n联系方式：${data.get("email")}\n\n项目简述：\n${data.get("message")}`
+      );
+      window.location.href = `mailto:hello@example.com?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>
